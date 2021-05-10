@@ -37,8 +37,8 @@
             </div>
         </div>
     </div>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.1/js/fileinput.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/fileinput.min.css') }}">
+    <script src="{{ asset('bower_components/fileinput.min.js') }}"></script>
     <script>
         var preview_image = "<?php echo url('images/default_preview.png') ?>";
         $("#image_media").fileinput({
