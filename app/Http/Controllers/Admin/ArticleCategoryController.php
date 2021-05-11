@@ -37,9 +37,20 @@ class ArticleCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleCategoryRequest $request)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('image_media')) {
+            $media = saveSingleMedia($request, 'image');
+            if (TRUE != $media['status']) {
+                Flash::error('Error', 'category Not Found');
+                return redirect(route('category.index'));
+            }
+            $data['media_id'] = $media['media_id'];
+        }
+        $category = ArticleCategory::create($data);
+        Flash::success('Success', 'Successfully Created category');
+        return redirect(route('category.index'));
     }
 
     /**
@@ -61,7 +72,12 @@ class ArticleCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = ArticleCategory::find($id);
+        if (empty($category)) {
+            Flash::error('Category Not Found');
+            return redirect('category.index');
+        }
+        return view('admin.articlecategory.edit', compact('category'));
     }
 
     /**
@@ -71,9 +87,18 @@ class ArticleCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleCategoryRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('image_media')) {
+            $media = saveSingleMedia($request, 'image');
+            if (TRUE == $media['status']) {
+                $data['media_id'] = $media['media_id'];
+            }
+        }
+        ArticleCategory::find($id)->update($data);
+        Flash::success('Success', 'Successfully Updated category');
+        return redirect(route('category.index'));
     }
 
     /**
@@ -84,6 +109,13 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if(empty($category)) {
+            Alert::error('Error', 'Category Not Found');
+            return redirect(route('category.index'));
+        }
+        $category->delete();
+        Alert::success('Success', 'Successfully deleted Category');
+        return redirect(route('category.index'));
     }
 }

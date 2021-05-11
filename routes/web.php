@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/admin', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-	Route::resource('articlecategory', 'ArticleCategoryController');
-	Route::resource('articletype', 'ArticleTypeController');
+	Route::delete('media/{id}', 'MediaController@destroy');
+	Route::resource('category', 'ArticleCategoryController');
+	Route::resource('textaritcle', 'TextArticleController');
 });

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\TextArticle;
 
-class ArticleTypeController extends Controller
+class TextArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class ArticleTypeController extends Controller
      */
     public function index()
     {
-        //
+        $articles = TextArticle::orderby('id', 'DESC')->paginate(25);
+        return $articles;
     }
 
     /**

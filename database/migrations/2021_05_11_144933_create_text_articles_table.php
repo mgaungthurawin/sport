@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleTypesTable extends Migration
+class CreateTextArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateArticleTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_types', function (Blueprint $table) {
+        Schema::create('text_articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('article_categories')->onDelete('cascade');
             $table->string('title');
+            $table->text('description');
             $table->integer('media_id');
+            $table->tinyinteger('status');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateArticleTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_types');
+        Schema::dropIfExists('text_articles');
     }
 }

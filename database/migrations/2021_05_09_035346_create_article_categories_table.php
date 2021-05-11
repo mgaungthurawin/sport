@@ -17,6 +17,7 @@ class CreateArticleCategoriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('media_id');
+            $table->tinyinteger('status');
             $table->timestamps();
         });
     }

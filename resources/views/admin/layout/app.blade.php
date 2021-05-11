@@ -27,9 +27,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<link rel="stylesheet" type="text/css" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
 	<link rel="shortcut icon" href="{{ asset('frontend/images/moi_logo.png') }}" sizes="130x130">
 	{{--
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.1/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" href="{{ asset('bower_components/star-rating.css') }}" media="all" rel="stylesheet" type="text/css"/>
 		<!-- Time Picker -->
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+		<link rel="stylesheet" href="{{ asset('bower_components/jquery.timepicker.min.css') }}">
 	--}}
 	<style>
 	    .bs-example{
@@ -48,8 +48,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- suggestion textbox -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('bower_components/jquery-1.12.4.js') }}"></script>
+<script src="{{ asset('bower_components/jquery-ui.js') }}"></script>
 <!-- Date Picker -->
 <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
@@ -158,15 +158,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('bower_components/admin-lte/dist/js/demo.js')}}"></script>
 
 <script src="{{ asset('bower_components/admin-lte/plugins/iCheck/icheck.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+<script src="{{ asset('bower_components/jquery-confirm.min.js') }}"></script>
 <script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.1/js/star-rating.js" type="text/javascript"></script>
+<script src="{{ asset('bower_components/star-rating.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <script src="{{ asset('bower_components/admin-lte/app.js')}}"></script>
 <script src="{{ asset('bower_components/select2/dist/js/select2.min.js')}}"></script>
-{{--<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>--}}
+{{--<script src="{{ asset('bower_components/ckeditor.js') }}"></script>
+<script src="{{ asset('bower_components/jquery.timepicker.min.js') }}"></script>--}}
 
 <script type="text/javascript">
 	$(document).ready(function() {
