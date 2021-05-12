@@ -24,5 +24,6 @@ Route::get('/admin', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	Route::delete('media/{id}', 'MediaController@destroy');
 	Route::resource('category', 'ArticleCategoryController');
-	Route::resource('textaritcle', 'TextArticleController');
+	Route::resource('textarticle', 'TextArticleController');
+	Route::resource('videoarticle', 'VideoArticleController');
 });

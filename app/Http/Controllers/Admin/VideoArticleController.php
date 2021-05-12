@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VideoArticleRequest;
+use App\Model\VideoArticle;
 use App\Model\ArticleCategory;
-use App\Http\Requests\ArticleCategoryRequest;
 use Flash;
 
-class ArticleCategoryController extends Controller
+class VideoArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,8 @@ class ArticleCategoryController extends Controller
      */
     public function index()
     {
-        $categories = ArticleCategory::orderby('id', 'desc')->paginate(25);
-        return view('admin.articlecategory.index', compact('categories'));
+        $articles = VideoArticle::orderby('id', 'DESC')->paginate(25);
+        return view('admin.videoarticle.index', compact('articles'));
     }
 
     /**
@@ -28,7 +29,8 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.articlecategory.create');
+        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        return view('admin.videoarticle.create', compact('categories'));
     }
 
     /**
@@ -37,20 +39,20 @@ class ArticleCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleCategoryRequest $request)
+    public function store(VideoArticleRequest $request)
     {
         $data = $request->all();
         if ($request->hasFile('image_media')) {
             $media = saveSingleMedia($request, 'image');
             if (TRUE != $media['status']) {
-                Flash::error('Error', 'category Not Found');
-                return redirect(route('category.index'));
+                Flash::error('Error', 'Can not upload image');
+                return redirect(route('videoarticle.index'));
             }
             $data['media_id'] = $media['media_id'];
         }
-        $category = ArticleCategory::create($data);
-        Flash::success('Success', 'Successfully Created category');
-        return redirect(route('category.index'));
+        VideoArticle::create($data);
+        Flash::success('Success', 'Successfully Created Article');
+        return redirect(route('videoarticle.index'));
     }
 
     /**
@@ -72,12 +74,13 @@ class ArticleCategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = ArticleCategory::find($id);
-        if (empty($category)) {
-            Flash::error('Category Not Found');
-            return redirect('category.index');
+        $article = VideoArticle::find($id);
+        if(empty($article)) {
+            Flash::error('Article not found');
+            return redirect(route('videoarticle.index'));
         }
-        return view('admin.articlecategory.edit', compact('category'));
+        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        return view('admin.videoarticle.edit', compact('categories', 'article'));
     }
 
     /**
@@ -87,7 +90,7 @@ class ArticleCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleCategoryRequest $request, $id)
+    public function update(VideoArticleRequest $request, $id)
     {
         $data = $request->all();
         if ($request->hasFile('image_media')) {
@@ -96,9 +99,9 @@ class ArticleCategoryController extends Controller
                 $data['media_id'] = $media['media_id'];
             }
         }
-        ArticleCategory::find($id)->update($data);
-        Flash::success('Success', 'Successfully Updated category');
-        return redirect(route('category.index'));
+        VideoArticle::find($id)->update($data);
+        Flash::success('Success', 'Successfully Updated Text Article');
+        return redirect(route('videoarticle.index'));
     }
 
     /**
@@ -109,13 +112,13 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = ArticleCategory::find($id);
-        if(empty($category)) {
+        $article = VideoArticle::find($id);
+        if(empty($article)) {
             Alert::error('Error', 'Category Not Found');
             return redirect(route('category.index'));
         }
-        $category->delete();
+        $article->delete();
         Alert::success('Success', 'Successfully deleted Category');
-        return redirect(route('category.index'));
+        return redirect(route('videoarticle.index'));
     }
 }

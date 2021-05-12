@@ -158,15 +158,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('bower_components/admin-lte/dist/js/demo.js')}}"></script>
 
 <script src="{{ asset('bower_components/admin-lte/plugins/iCheck/icheck.min.js') }}"></script>
-<script src="{{ asset('bower_components/jquery-confirm.min.js') }}"></script>
+{{--<script src="{{ asset('bower_components/jquery-confirm.min.js') }}"></script>--}}
 <script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('bower_components/star-rating.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <script src="{{ asset('bower_components/admin-lte/app.js')}}"></script>
 <script src="{{ asset('bower_components/select2/dist/js/select2.min.js')}}"></script>
-{{--<script src="{{ asset('bower_components/ckeditor.js') }}"></script>
-<script src="{{ asset('bower_components/jquery.timepicker.min.js') }}"></script>--}}
+<script src="{{ asset('bower_components/ckeditor.js') }}"></script>
+<script src="{{ asset('bower_components/jquery.timepicker.min.js') }}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
