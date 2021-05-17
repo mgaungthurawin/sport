@@ -39,13 +39,13 @@ class VideoArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideoArticleRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image_media')) {
-            $media = saveSingleMedia($request, 'image');
+        if ($request->hasFile('video_media')) {
+            $media = saveSingleMedia($request, 'video');
             if (TRUE != $media['status']) {
-                Flash::error('Error', 'Can not upload image');
+                Flash::error('Error', 'Can not upload video');
                 return redirect(route('videoarticle.index'));
             }
             $data['media_id'] = $media['media_id'];
@@ -93,8 +93,8 @@ class VideoArticleController extends Controller
     public function update(VideoArticleRequest $request, $id)
     {
         $data = $request->all();
-        if ($request->hasFile('image_media')) {
-            $media = saveSingleMedia($request, 'image');
+        if ($request->hasFile('video_media')) {
+            $media = saveSingleMedia($request, 'video');
             if (TRUE == $media['status']) {
                 $data['media_id'] = $media['media_id'];
             }

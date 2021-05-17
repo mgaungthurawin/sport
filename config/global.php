@@ -11,6 +11,6 @@ return [
 	],
 	"MEDIA_TYPE" => [
 		'image' => array('field_name' => 'image_media', 'extension' => array("jpg", "png", "jpeg"), 'max_size' => 50000000000),
-		'image' => array('field_name' => 'video_media', 'extension' => array("jpg", "png", "jpeg"), 'max_size' => 50000000000),
+		'video' => array('field_name' => 'video_media', 'extension' => array("mp4"), 'max_size' => 50000000000)
 	]
 ];

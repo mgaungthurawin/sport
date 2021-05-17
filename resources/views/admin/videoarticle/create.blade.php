@@ -60,7 +60,7 @@
                     <div class="col-md-6">
                           <div class="form-group">
                             <label><strong>Upload Video</strong></label><span class="text-danger">*</span><br>
-                            <input type="file" name="image_media" id="image_media" accept="*">
+                            <input type="file" name="video_media" id="video_media" accept="mp4/*">
                             {{ Form::hidden('media_path', 'MEDIA_UPLOAD') }}
                         </div>
                     </div>
@@ -78,7 +78,7 @@
     <script src="{{ asset('bower_components/fileinput.min.js') }}"></script>
     <script>
         var preview_image = "<?php echo url('images/default_preview.png') ?>";
-        $("#image_media").fileinput({
+        $("#video_media").fileinput({
             overwriteInitial: true,
             showClose: false,
             showCaption: true,
@@ -93,7 +93,7 @@
             msgErrorClass: 'alert alert-block alert-danger',
             defaultPreviewContent: '<img src="' + preview_image + '" alt="Your Avatar" class="img-rounded" style="width:250px">',
             layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif"]
+            allowedFileExtensions: ["mp4"]
         });
     </script>
 @endsection

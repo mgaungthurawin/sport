@@ -1,5 +1,6 @@
 <?php
 use App\Model\Media;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 function saveSingleMedia($request, $upload_type)
 {
@@ -35,7 +36,7 @@ function saveMultipleMedia(Request $request, $upload_type)
     $media_paths = config('global')['MEDIA_PATH'];
     $media_types = config('global')['MEDIA_TYPE'];
     $mediaField = $media_types[$upload_type];
-
+    return $mediaField;
 
     $upload_path = $media_paths[$request->media_path] . "/" . date("Y") . "/" . date("m") . "/";
     if (!is_dir($upload_path)) {
@@ -127,4 +128,99 @@ function showPrettyStatus($status)
             break;
     }
 }
+
+// Phone Number Validation Helper
+
+function checkoperator($msisdn) {
+    $carrierMapper = \libphonenumber\PhoneNumberToCarrierMapper::getInstance();
+    $chNumber = \libphonenumber\PhoneNumberUtil::getInstance()->parse($msisdn, null);
+    $operator_name=$carrierMapper->getNameForNumber($chNumber, 'en');
+    return $operator_name;
+}
+
+
+function country($msisdn)
+{
+    $geoCoder = \libphonenumber\geocoding\PhoneNumberOfflineGeocoder::getInstance();;
+    $gbNumber = \libphonenumber\PhoneNumberUtil::getInstance()->parse($msisdn, null);
+    $country=$geoCoder->getDescriptionForNumber($gbNumber, 'en_GB', 'US');
+    return $country;
+}
+
+function operator($msisdn)
+{
+    $carrierMapper = \libphonenumber\PhoneNumberToCarrierMapper::getInstance();
+    $chNumber = \libphonenumber\PhoneNumberUtil::getInstance()->parse($msisdn, null);
+    $operator_name=$carrierMapper->getNameForNumber($chNumber, 'en');
+    return $operator_name;
+}
+
+
+function otpSend($msisdn, $tranid) 
+{
+    $url = config('custom.URL')[config('app.env')] . 'GetOtp';
+    $params = 'mobile='.$msisdn.'&regUser=REGIS_MPT&regPassword=UkVHSVNfT1RQQDU0MzI=&otpMsgLang=2&serviceName=Taptube&serviceDesc=Taptube&CLI=8934&transId='. $tranid .'&cpId=TAP&cpPassWord=tap@123&email=&requestChannel=PIN';
+    $fullurl = urlencode($url."?".$params);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $fullurl); //Url together with parameters
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Return data instead printing directly in Browser
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 7); //Timeout after 7 seconds
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return ['req' => $url .'?'.$params , 'res' => $result];
+}
+
+function getUUID()
+{
+    return rand(100,999).time().rand(100,999);
+}
+
+function otpRegeneration() 
+{
+    $msisdn = Session::get('msisdn');
+    $tranid = Session::get('tranid');
+    $url = config('custom.URL')[config('app.env')] . 'ResendOtp';
+    $params = 'mobile='.$msisdn.'&regUser=REGIS_MPT&regPassword=UkVHSVNfT1RQQDU0MzI=&otpMsgLang=2&serviceName=Taptube&serviceDesc=Taptube&CLI=8934&transId='. $tranid .'&cpId=TAP&cpPassWord=tap@123&email=&requestChannel=PIN';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url.'?'.$params ); //Url together with parameters
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Return data instead printing directly in Browser
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 7); //Timeout after 7 seconds
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return ['req' => $url .'?'.$params , 'res' => $result];
+}
+
+function otpValidation ($msisdn, $otp)
+{
+    $tranid = Session::get('tranid');
+    $url = config('custom.URL')[config('app.env')] . 'VerifyOtp';
+    $params = 'mobile='.$msisdn.'&regUser=REGIS_MPT&regPassword=UkVHSVNfT1RQQDU0MzI=&otpMsgLang=2&otp='.$otp.'&serviceName=Taptube&serviceDesc=Taptube&CLI=8934&transId='. $tranid .'&cpId=TAP&cpPassWord=tap@123&email=&requestChannel=PIN';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url.'?'.$params ); //Url together with parameters
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Return data instead printing directly in Browser
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 7); //Timeout after 7 seconds
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return ['req' => $url .'?'.$params , 'res' => $result];
+}
+
+function unsubscribe_process($msisdn, $tranid) 
+{
+    $url = config('custom.URL')[config('app.env')] . 'CGUnsubscribe';
+    $params = 'MSISDN='.$msisdn.'&productID=10500&pName=Taptube&pPrice=99&pVal=1&CpId=TAP&CpPwd=tap@123&CpName=TAP&reqMode=WAP&reqType=SUBSCRIPTION&ismID=17&transID='. getUUID() .'&sRenewalPrice=99&sRenewalValidity=1&serviceType=T_TAP_WAP_SUB_D&planId=T_TAP_WAP_SUB_D_99&request_locale=my&opId=101';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url.'?'.$params ); //Url together with parameters
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Return data instead printing directly in Browser
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 7); //Timeout after 7 seconds
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return ['req' => $url .'?'.$params , 'res' => $result]; 
+}
+
+
+
 

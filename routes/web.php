@@ -27,3 +27,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	Route::resource('textarticle', 'TextArticleController');
 	Route::resource('videoarticle', 'VideoArticleController');
 });
+
+Route::group(['namespace' => 'Web'], function () {
+	Route::get('msisdn', 'WebController@msisdn');
+	Route::post('msisdn', 'WebController@postMsisdn');
+	Route::get('otp', 'WebController@otpSend');
+});
