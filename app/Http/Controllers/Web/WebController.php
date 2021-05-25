@@ -5,23 +5,44 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\MsisdnHelper;
+use App\Model\TextArticle;
+use App\Model\VideoArticle;
 
 class WebController extends Controller
 {
-    public function msisdn() {
-    	return view('web.msisdn');
+    public function index() {
+        return view('web.index');
     }
 
-    public function postMsisdn(Request $request) {
-    	$data = $request->all();
-    	$msisdn = $data['country_code'].'9'.$data['phone_number'];
-    	$msisdnhelper = new MsisdnHelper;
-    	$url = $msisdnhelper->operatorValitation($msisdn);
-    	return $url;
-    	// return redirect(url($url));
+    public function news() {
+        $articles = TextArticle::where('status', TRUE)->orderBy('created_at', 'desc')->get();
+        return view('web.news', compact('articles'));
     }
 
-    public function optSend() {
+    public function videos() {
+        $articles = VideoArticle::where('status', TRUE)->orderBy('created_at', 'desc')->get();
+        return view('web.videos', compact('articles'));
+    }
 
+    public function categoryNews($category_id) {
+        $articles = TextArticle::where('status', TRUE)->where('category_id', $category_id)->orderBy('created_at', 'desc')->get();
+        return view('web.category_news', compact('articles', 'category_id'));
+    }
+
+    public function categoryVideos($category_id) {
+        $articles = VideoArticle::where('status', TRUE)->where('category_id', $category_id)->orderBy('created_at', 'desc')->get();
+        return view('web.category_videos', compact('articles', 'category_id'));
+    }
+
+    public function articleDetail($article_id, $type) {
+        return $type;
+    }
+
+    public function faq() {
+        return view('web.faq');
+    }
+
+    public function favorites() {
+        return view('web.favorites');
     }
 }

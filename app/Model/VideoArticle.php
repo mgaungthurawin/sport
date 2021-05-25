@@ -6,9 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class VideoArticle extends Model
 {
-    protected $fillable = ['category_id', 'title', 'description', 'media_id', 'status'];
+    protected $fillable = ['category_id', 'title', 'description', 'media_id', 'video_media_id', 'status'];
     public function media()
     {
     	return $this->belongsTo('App\Model\Media');
+    }
+
+    public function videomedia()
+    {
+    	return $this->belongsTo('App\Model\Media', 'video_media_id');
     }
 }

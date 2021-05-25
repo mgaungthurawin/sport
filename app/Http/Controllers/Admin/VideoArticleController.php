@@ -48,8 +48,19 @@ class VideoArticleController extends Controller
                 Flash::error('Error', 'Can not upload video');
                 return redirect(route('videoarticle.index'));
             }
+            $data['video_media_id'] = $media['media_id'];
+        }
+
+        if ($request->hasFile('image_media')) {
+            $media = saveSingleMedia($request, 'image');
+            if (TRUE != $media['status']) {
+                Flash::error('Error', 'Can not upload video');
+                return redirect(route('videoarticle.index'));
+            }
             $data['media_id'] = $media['media_id'];
         }
+
+
         VideoArticle::create($data);
         Flash::success('Success', 'Successfully Created Article');
         return redirect(route('videoarticle.index'));
@@ -95,9 +106,20 @@ class VideoArticleController extends Controller
         $data = $request->all();
         if ($request->hasFile('video_media')) {
             $media = saveSingleMedia($request, 'video');
-            if (TRUE == $media['status']) {
-                $data['media_id'] = $media['media_id'];
+            if (TRUE != $media['status']) {
+                Flash::error('Error', 'Can not upload video');
+                return redirect(route('videoarticle.index'));
             }
+            $data['video_media_id'] = $media['media_id'];
+        }
+
+        if ($request->hasFile('image_media')) {
+            $media = saveSingleMedia($request, 'image');
+            if (TRUE != $media['status']) {
+                Flash::error('Error', 'Can not upload video');
+                return redirect(route('videoarticle.index'));
+            }
+            $data['media_id'] = $media['media_id'];
         }
         VideoArticle::find($id)->update($data);
         Flash::success('Success', 'Successfully Updated Text Article');
