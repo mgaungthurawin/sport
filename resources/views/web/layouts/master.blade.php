@@ -83,10 +83,35 @@
       $(".swiper-wrapper").animate({ scrollLeft: leftPos + 200 }, 800);
     });
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2228550784125379&amp;ev=PageView&amp;noscript=1">
-  </noscript>
+  <script>
+      $(document).on('click', '[rel=favorite]', function () {
+          var vhr = $(this);
+          var rid = vhr.attr('data-id');
+          vhr.toggleClass('btn-active')
+          // $.get('/api/favorite/'+rid, function(rsp) {
+          //     if(rsp.work == 'insert') {
+          //         vhr.addClass('btn-active');
+          //     }
+          //     if(rsp.work == 'delete') {
+          //         vhr.removeClass('btn-active');
+          //     }
+          // });
+      });
+
+      $(document).on('click', '#shareBtn', function () {
+          var buttons = $('.page-share-buttons');
+          var icon = $(this).find('i');
+          buttons.slideToggle('fast');
+
+          if ($(this).hasClass('btn-active')) {
+              $(this).removeClass('btn-active');
+              icon.removeClass('fa-plus').addClass('fa-share');
+          } else {
+              $(this).addClass('btn-active');
+              icon.removeClass('fa-share').addClass('fa-plus');
+          }
+      });
+  </script>
 </body>
 
 </html>

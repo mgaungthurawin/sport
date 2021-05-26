@@ -35,7 +35,17 @@ class WebController extends Controller
     }
 
     public function articleDetail($article_id, $type) {
-        return $type;
+        if("text" == $type) {
+            $article = TextArticle::find($article_id);
+            $category_id = $article->category_id;
+            return view('web.new_detail', compact('article', 'category_id'));
+        }
+
+        if ("video" == $type) {
+            $article = VideoArticle::find($article_id);
+            $category_id = $article->category_id;
+            return view('web.video_detail', compact('article', 'category_id'));
+        }
     }
 
     public function faq() {
