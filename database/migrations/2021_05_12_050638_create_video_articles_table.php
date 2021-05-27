@@ -19,7 +19,7 @@ class CreateVideoArticlesTable extends Migration
             $table->foreign('category_id')->references('id')->on('article_categories')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->integer('media_id');
+            $table->integer('media_id')->nullable();
             $table->integer('video_media_id');
             $table->tinyinteger('status');
             $table->timestamps();

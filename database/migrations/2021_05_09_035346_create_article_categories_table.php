@@ -16,7 +16,7 @@ class CreateArticleCategoriesTable extends Migration
         Schema::create('article_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('media_id');
+            $table->integer('media_id')->nullable();
             $table->tinyinteger('status');
             $table->timestamps();
         });
