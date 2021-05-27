@@ -20,7 +20,7 @@ class CreateVideoArticlesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('media_id')->nullable();
-            $table->integer('video_media_id');
+            $table->integer('video_media_id')->nullable();
             $table->tinyinteger('status');
             $table->timestamps();
         });
