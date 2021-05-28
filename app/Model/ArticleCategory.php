@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ArticleCategory extends Model
 {
-    protected $fillable = ['title', 'media_id', 'status'];
+    protected $fillable = ['parent', 'order', 'name', 'slug', 'description', 'media_id', 'icon'];
 
     public function media()
     {

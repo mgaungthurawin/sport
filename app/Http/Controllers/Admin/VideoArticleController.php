@@ -29,7 +29,7 @@ class VideoArticleController extends Controller
      */
     public function create()
     {
-        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        $categories = ArticleCategory::all();
         return view('admin.videoarticle.create', compact('categories'));
     }
 
@@ -74,7 +74,12 @@ class VideoArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = VideoArticle::find($id);
+        if(empty($article)) {
+            Flash::error('article not found');
+            return redirect(route('videoarticle.index'));
+        }
+        return view('admin.videoarticle.show', compact('article'));
     }
 
     /**
@@ -90,7 +95,7 @@ class VideoArticleController extends Controller
             Flash::error('Article not found');
             return redirect(route('videoarticle.index'));
         }
-        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        $categories = ArticleCategory::all();
         return view('admin.videoarticle.edit', compact('categories', 'article'));
     }
 
@@ -140,7 +145,7 @@ class VideoArticleController extends Controller
             return redirect(route('category.index'));
         }
         $article->delete();
-        Alert::success('Success', 'Successfully deleted Category');
+        Flash::success('Success', 'Successfully deleted Category');
         return redirect(route('videoarticle.index'));
     }
 }

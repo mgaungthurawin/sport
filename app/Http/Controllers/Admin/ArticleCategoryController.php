@@ -28,7 +28,8 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.articlecategory.create');
+        $parents = ArticleCategory::all();
+        return view('admin.articlecategory.create', compact('parents'));
     }
 
     /**
@@ -61,7 +62,13 @@ class ArticleCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = ArticleCategory::find($id);
+        if(empty($category)) {
+            Flash::error('category not found');
+            return redirect(route('category.index'));
+        }
+
+        return view('admin.articlecategory.show', compact('category'));
     }
 
     /**
@@ -73,11 +80,12 @@ class ArticleCategoryController extends Controller
     public function edit($id)
     {
         $category = ArticleCategory::find($id);
+        $parents = ArticleCategory::all();
         if (empty($category)) {
             Flash::error('Category Not Found');
             return redirect('category.index');
         }
-        return view('admin.articlecategory.edit', compact('category'));
+        return view('admin.articlecategory.edit', compact('category', 'parents'));
     }
 
     /**

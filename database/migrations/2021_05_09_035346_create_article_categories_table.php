@@ -15,9 +15,13 @@ class CreateArticleCategoriesTable extends Migration
     {
         Schema::create('article_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->integer('parent')->nullable();
+            $table->integer('order')->nullable();
+            $table->string('name');
+            $table->string('slug')->nullable();
+            $table->text('description')->nullable();
             $table->integer('media_id')->nullable();
-            $table->tinyinteger('status');
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

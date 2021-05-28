@@ -120,13 +120,14 @@ function fileSizeFormat($bytes)
 
 function showPrettyStatus($status)
 {
-    switch ($status) {
-        case TRUE:
-            return '<i class="fa fa-check-circle text-green"></i>';
-            break;
-        case FALSE:
-            return '<i class="fa fa-times-circle-o text-red"></i>';
-            break;
+    if(config('global')["STATUS_ACTIVE"] == $status) {
+        return 'published';
+    }
+    if(config('global')["STATUS_INACTIVE"] == $status) {
+        return 'draft';
+    }
+    if(config('global')["STATUS_PENDING"] == $status) {
+        return 'pending';
     }
 }
 
@@ -166,6 +167,14 @@ function getAllCategories() {
     return $categories;
 }
 
+function CategoryParnet($id) {
+    $category = ArticleCategory::find($id);
+    if(empty($category)) {
+        return "-- None --";
+    }
+
+    return $category->name;
+}
 
 
 

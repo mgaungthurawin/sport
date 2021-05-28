@@ -2,7 +2,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Article Categories
+            Categories
         </h1>
         <span class="breadcrumb"><a href='{{ route("category.create") }}' class="btn btn-sm btn-primary"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Create</a></span>
     </section>
@@ -26,21 +26,33 @@
 
                 <table class="table table-striped table-hover tbl_repeat" id="sortable">
                     <thead>
-                        <th>No.</th>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th colspan="3">Action</th>
+                        <th>ID</th>
+                        <th>Parent</th>
+                        <th>Order</th>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Icon</th>
+                        <th colspan="3">Actions</th>
                     </thead>
                     <tbody>
                     <?php $index = 1; ?>
                     @foreach($categories as $category)
                         <tr>
                             <td>{{ $index++ }}</td>
-                            <td>{!! $category->title !!}</td>
-                            <td>{!! showPrettyStatus($category->status) !!}</td>
+                            <td>{!! CategoryParnet($category->parent) !!}</td>
+                            <td>{!! $category->order !!}</td>
+                            <td>{!! $category->name !!}</td>
+                            <td>{!! $category->slug !!}</td>
+                            <td>{!! $category->description !!}</td>
+                            <td>{!! $category->image !!}</td>
+                            <td>{!! $category->icon !!}</td>
                             <td>
+                            <a href="{!! route('category.show', [$category->id]) !!}"
+                               class='btn btn-xs btn-warning'><i class="fa fa-eye"></i>&nbsp;View</a>
                             <a href="{!! route('category.edit', [$category->id]) !!}"
-                               class='btn btn-xs btn-primary'><i class="fa fa-check-square-o"></i>&nbsp;Edit</a>
+                               class='btn btn-xs btn-primary'><i class="fa fa-edit"></i>&nbsp;Edit</a>
                             {{--<a href="#" type="button" data-id="{{ $category->id }}"
                                class="btn btn-xs btn-danger" data-toggle="modal"
                                data-url="{{ url('admin/category/'.$category->id) }}"

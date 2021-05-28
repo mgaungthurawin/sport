@@ -2,7 +2,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Video Articles
+            Posts
         </h1>
         <span class="breadcrumb"><a href='{{ route("videoarticle.create") }}' class="btn btn-sm btn-primary"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Create</a></span>
     </section>
@@ -28,8 +28,9 @@
                     <thead>
                         <th>No.</th>
                         <th>Title</th>
-                        <th>Description</th>
+                        <th>Post Image</th>
                         <th>Status</th>
+                        <th>Created At</th>
                         <th colspan="3">Action</th>
                     </thead>
                     <tbody>
@@ -38,16 +39,19 @@
                         <tr>
                             <td>{{ $index++ }}</td>
                             <td>{!! $article->title !!}</td>
-                            <td>{!! $article->description !!}</td>
+                            <td><img src="{{ asset($article->media->file_path . $article->media->file_name) }}" width="100px;" /></td>
                             <td>{!! showPrettyStatus($article->status) !!}</td>
+                            <td>{!! $article->created_at !!}</td>
                             <td>
+                            <a href="{!! route('videoarticle.show', [$article->id]) !!}"
+                               class='btn btn-xs btn-warning'><i class="fa fa-eye"></i>&nbsp;View</a>
                             <a href="{!! route('videoarticle.edit', [$article->id]) !!}"
-                               class='btn btn-xs btn-primary'><i class="fa fa-check-square-o"></i>&nbsp;Edit</a>
-                            {{--<a href="#" type="button" data-id="{{ $article->id }}"
+                               class='btn btn-xs btn-primary'><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                            <a href="#" type="button" data-id="{{ $article->id }}"
                                class="btn btn-xs btn-danger" data-toggle="modal"
                                data-url="{{ url('admin/videoarticle/'.$article->id) }}"
                                data-target="#deleteFormModal"><i
-                                    class="fa fa-trash-o"></i>&nbsp;Delete</a>--}}
+                                    class="fa fa-trash-o"></i>&nbsp;Delete</a>
                             </td>
                         </tr>
                     @endforeach

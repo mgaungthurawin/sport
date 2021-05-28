@@ -11,35 +11,22 @@
             <div class="box-body">
                 <div class="row">
                 {!! Form::open(['route' => 'category.store', 'files' => 'true']) !!}
-                    <div class="form-group col-sm-6">
-                        {!! Form::label('title', 'Title:') !!} <span class="text-danger">*</span>
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                        @if ($errors->has('title'))
+                    <div class="form-group col-sm-12">
+                        {!! Form::label('parent', 'Parent:') !!}
+                        <select class="form-control" name="parent">
+                            <option value="">-- None --</option>
+                            @foreach($parents as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('category_id'))
                             <span class="text-danger">
-                                <strong>{{ $errors->first('title') }}</strong>
+                                <strong>{{ $errors->first('category_id') }}</strong>
                             </span>
                        @endif
                     </div>
-                    <div class="form-group">
-                        <label for="status" class="col-sm-6 control-label">Status </label>
-                        <div class="col-sm-6 col-md-6">
-                            <select name="status" class="form-control select2">
-                                <option value="{!! config('global')['STATUS_ACTIVE'] !!}">
-                                    Active
-                                </option>
-                                <option value="{!! config('global')['STATUS_INACTIVE'] !!}">
-                                    Inactive
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                          <div class="form-group">
-                            <label><strong>Upload Image</strong></label><span class="text-danger">*</span><br>
-                            <input type="file" name="image_media" id="image_media" accept="image/*">
-                            {{ Form::hidden('media_path', 'CATEGORY_MEDIA_UPLOAD') }}
-                        </div>
-                    </div>
+
+                    @include('admin.articlecategory.fields')
 
                     <div class="form-group col-sm-12">
                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

@@ -1,8 +1,10 @@
 <?php
 
 return [
-	"STATUS_ACTIVE" => 1,
 	"STATUS_INACTIVE" => 0,
+	"STATUS_ACTIVE" => 1,
+	"STATUS_PENDING" => 2,
+
 	"CATEGORY_MEDIA_UPLOAD" => 17,
 	"MEDIA_UPLOAD" => 18,
 	"MEDIA_PATH" => [

@@ -2,7 +2,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Edit Article Category
+            Edit Category
         </h1>
         <span class="breadcrumb"><a href='{{ route("category.index") }}' class="btn btn-sm btn-primary"><i class="fa fa-arrow-circle-left"></i>&nbsp;&nbsp;Go To Article Categories</a></span>
     </section>
@@ -11,44 +11,27 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::model($category, ['method' => 'PATCH','route' => ['category.update', $category->id], 'files' => 'true' ]) !!}
-                    <div class="form-group col-sm-6">
-                        {!! Form::label('title', 'Title:') !!} <span class="text-danger">*</span>
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                        @if ($errors->has('title'))
-                            <span class="text-danger">
-                                <strong>{{ $errors->first('title') }}</strong>
-                            </span>
-                       @endif
-                    </div>
-                    <div class="form-group">
-                            <label for="status" class="col-sm-6 control-label">Status <span
-                                        class="mandatory">*</span></label>
-                            <div class="col-sm-6 col-md-6">
-                                <select name="status" class="form-control select2" style="with:100%">
-                                    <option value="{!! config('global')['STATUS_ACTIVE'] !!}"
-                                        @if($category->status == config('global')['STATUS_ACTIVE'])
+
+                        <div class="form-group col-sm-12">
+                            {!! Form::label('parent', 'Parent:') !!}
+                            <select class="form-control" name="parent">
+                                <option value="">-- None --</option>
+                                @foreach($parents as $parent)
+                                    <option value="{{ $parent->id }}" 
+                                        @if($parent->id == $category->parent)
                                             selected
                                         @endif
-                                    >
-                                        Active
-                                    </option>
-                                    <option value="{!! config('global')['STATUS_INACTIVE'] !!}"
-                                        @if($category->status == config('global')['STATUS_INACTIVE'])
-                                            selected
-                                        @endif
-                                    >
-                                        Inactive
-                                    </option>
-                                </select>
-                            </div>
+                                        >{{ $parent->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('category_id'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('category_id') }}</strong>
+                                </span>
+                           @endif
                         </div>
-                    <div class="col-md-12">
-                          <div class="form-group">
-                            <label><strong>Upload Image</strong></label><span class="text-danger">*</span><br>
-                            <input type="file" name="image_media" id="image_media" accept="image/*">
-                            {{ Form::hidden('media_path', 'CATEGORY_MEDIA_UPLOAD') }}
-                        </div>
-                    </div>
+
+                        @include('admin.articlecategory.fields')
 
                     <div class="form-group col-sm-12">
                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

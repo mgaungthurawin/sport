@@ -20,7 +20,9 @@ class CreateTextArticlesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('media_id')->nullable();
+            $table->string('slug')->nullable();
             $table->tinyinteger('status');
+            $table->tinyinteger('is_featured')->default(0);
             $table->timestamps();
         });
     }

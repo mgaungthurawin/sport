@@ -29,7 +29,7 @@ class TextArticleController extends Controller
      */
     public function create()
     {
-        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        $categories = ArticleCategory::all();
         return view('admin.textarticle.create', compact('categories'));
     }
 
@@ -63,7 +63,12 @@ class TextArticleController extends Controller
      */
     public function show($id)
     {
-        // 
+        $article = TextArticle::find($id);
+        if(empty($article)) {
+            Flash::error('Article not found');
+            return redirect(route('textarticle.index'));
+        }
+        return view('admin.textarticle.show', compact('article'));
     }
 
     /**
@@ -79,7 +84,7 @@ class TextArticleController extends Controller
             Flash::error('Article not found');
             return redirect(route('textarticle.index'));
         }
-        $categories = ArticleCategory::where('status', config('global')['STATUS_ACTIVE'])->get();
+        $categories = ArticleCategory::all();
         return view('admin.textarticle.edit', compact('categories', 'article'));
     }
 
@@ -118,7 +123,7 @@ class TextArticleController extends Controller
             return redirect(route('category.index'));
         }
         $article->delete();
-        Alert::success('Success', 'Successfully deleted Category');
+        Flash::success('Success', 'Successfully deleted Category');
         return redirect(route('textarticle.index'));
     }
 }

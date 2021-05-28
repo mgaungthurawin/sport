@@ -231,6 +231,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         }
 
+        $('textarea.editor').each(function() {
+            CKEDITOR.replace($(this).attr('id'));
+        });
+
         
 
 	})

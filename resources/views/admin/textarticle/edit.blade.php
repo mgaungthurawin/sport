@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row">
                 {!! Form::model($article, ['method' => 'PATCH','route' => ['textarticle.update', $article->id], 'files' => 'true' ]) !!}
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-12">
                         {!! Form::label('category', 'Category:') !!} <span class="text-danger">*</span>
                         <select class="form-control" name="category_id">
                             @foreach($categories as $category)
@@ -19,7 +19,7 @@
                                     @if($category->id == $article->category_id)
                                         selected
                                     @endif
-                                    >{{ $category->title }}</option>
+                                    >{{ $category->name }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('category_id'))
@@ -29,45 +29,23 @@
                        @endif
                     </div>
 
-                    <div class="form-group col-md-6">
+                    @include('admin.textarticle.fields')
+
+                    <div class="form-group col-md-12">
                         <label for="status" class="control-label">Status </label>
                         <select name="status" class="form-control select2">
                             <option value="{!! config('global')['STATUS_ACTIVE'] !!}" <?php echo Request::old('status', isset($article) ? $article->status : null) == config('global')['STATUS_ACTIVE'] ? 'selected' : ''?>>
-                                Active
+                                published
                             </option>
                             <option value="{!! config('global')['STATUS_INACTIVE'] !!}" <?php echo Request::old('status', isset($article) ? $article->status : null) == config('global')['STATUS_INACTIVE'] ? 'selected' : ''?>>
-                                Inactive
+                                draft
+                            </option>
+                            <option value="{!! config('global')['STATUS_PENDING'] !!}" <?php echo Request::old('status', isset($article) ? $article->status : null) == config('global')['STATUS_PENDING'] ? 'selected' : ''?>>
+                                pending
                             </option>
                         </select>
                     </div>
 
-                    <div class="form-group col-sm-12">
-                        {!! Form::label('title', 'Title:') !!} <span class="text-danger">*</span>
-                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                        @if ($errors->has('title'))
-                            <span class="text-danger">
-                                <strong>{{ $errors->first('title') }}</strong>
-                            </span>
-                       @endif
-                    </div>
-
-                    <div class="form-group col-sm-6">
-                        {!! Form::label('description', 'Description:') !!} <span class="text-danger">*</span>
-                        <textarea id="content" class="form-control" name="description" rows="10" cols="50">{{ $article->description }}</textarea>
-                         @if ($errors->has('description'))
-                             <span class="text-danger">
-                                 <strong>{{ $errors->first('description') }}</strong>
-                             </span>
-                        @endif
-                    </div>
-
-                    <div class="col-md-6">
-                          <div class="form-group">
-                            <label><strong>Upload Image</strong></label><span class="text-danger">*</span><br>
-                            <input type="file" name="image_media" id="image_media" accept="image/*">
-                            {{ Form::hidden('media_path', 'MEDIA_UPLOAD') }}
-                        </div>
-                    </div>
 
                     <div class="form-group col-sm-12">
                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
