@@ -1,6 +1,7 @@
 <?php
 use App\Model\Media;
 use App\Model\ArticleCategory;
+use App\Model\Favourite;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 function saveSingleMedia($request, $upload_type)
@@ -176,5 +177,12 @@ function CategoryParnet($id) {
     return $category->name;
 }
 
-
+function checkFav($article_id, $type) {
+    $customer_id = Session::get('user_id');
+    $favourite = Favourite::where('customer_id', $customer_id)->where('article_id', $article_id)->where('type', $type)->first();
+    if($favourite) {
+        return 'btn-active';
+    }
+    return;
+}
 

@@ -37,7 +37,7 @@
             <div class="swiper-slide swiper-slide-active"><a class="home-tags-item" href="{{ url($category->id.'/news') }}">
                 <svg class="icon icon-football icon-sm mr-2">
                   <use xlink:href=""></use>
-                </svg><span>{{ $category->title }}</span></a>
+                </svg><span>{{ $category->name }}</span></a>
             </div>
           @endforeach
           

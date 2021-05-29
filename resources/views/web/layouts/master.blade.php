@@ -85,18 +85,23 @@
   </script>
   <script>
       $(document).on('click', '[rel=favorite]', function () {
-          var vhr = $(this);
-          var rid = vhr.attr('data-id');
-          vhr.toggleClass('btn-active')
-          // $.get('/api/favorite/'+rid, function(rsp) {
-          //     if(rsp.work == 'insert') {
-          //         vhr.addClass('btn-active');
-          //     }
-          //     if(rsp.work == 'delete') {
-          //         vhr.removeClass('btn-active');
-          //     }
-          // });
-      });
+            var vhr = $(this);
+            var article_id = vhr.attr('data-id');
+            var url = vhr.attr('data-url') +'/'+ article_id;
+            vhr.toggleClass('btn-active')
+            $.get(url, function(rsp) {
+                console.log(rsp);
+                if(rsp.status == true) {
+                    vhr.addClass('btn-active');
+                }
+                // if(rsp.work == 'insert') {
+                //     vhr.addClass('btn-active');
+                // }
+                // if(rsp.work == 'delete') {
+                //     vhr.removeClass('btn-active');
+                // }
+            });
+        });
 
       $(document).on('click', '#shareBtn', function () {
           var buttons = $('.page-share-buttons');

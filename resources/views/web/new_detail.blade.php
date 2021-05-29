@@ -8,7 +8,7 @@
               <div class="container-fluid">
 
                   <div class="page-video-buttons d-flex align-items-center mb-3">
-                      <a class="flex-1 page-video-buttons__item btn btn-light mr-2 active " data-id="3286"
+                      <a class="flex-1 page-video-buttons__item btn btn-light mr-2 active {{ checkFav($article->id, 'text') }}" data-id="{{ $article->id }}" data-url="{{ url('favourite/text') }}"
                           rel="favorite" id="favoriteBtn" href="javascript:;">
                           <i class=" far  fa-star "></i></a>
                       <div class="flex-1 page-video-buttons__item btn btn-primary mr-2 position-relative">

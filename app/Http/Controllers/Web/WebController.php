@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Helpers\MsisdnHelper;
 use App\Model\TextArticle;
 use App\Model\VideoArticle;
+use App\Model\Favourite;
+use Session;
 
 class WebController extends Controller
 {
@@ -37,15 +39,23 @@ class WebController extends Controller
     public function articleDetail($article_id, $type) {
         if("text" == $type) {
             $article = TextArticle::find($article_id);
+            if(empty($article)) {
+                return redirect(url('videos'));
+            }
             $category_id = $article->category_id;
             return view('web.new_detail', compact('article', 'category_id'));
         }
 
         if ("video" == $type) {
             $article = VideoArticle::find($article_id);
+            if(empty($article)) {
+                return redirect(url('videos'));
+            }
             $category_id = $article->category_id;
             return view('web.video_detail', compact('article', 'category_id'));
         }
+
+        return redirect(url('videos'));
     }
 
     public function faq() {
@@ -53,6 +63,38 @@ class WebController extends Controller
     }
 
     public function favorites() {
-        return view('web.favorites');
+        $customer_id = Session::get('user_id');
+        $texts = Favourite::join('text_articles as t', 't.id', 'favourites.article_id')
+                    ->join('media as m', 'm.id', 't.media_id')
+                    ->select('favourites.id', 't.id as article_id', 't.title', 'm.file_path', 'm.file_name')
+                    ->where('favourites.customer_id', $customer_id)->where('favourites.type', 'text')->get();
+        $videos = Favourite::join('video_articles as v', 'v.id', 'favourites.article_id')
+                    ->join('media as m', 'm.id', 'v.media_id')
+                    ->select('favourites.id', 'v.id as article_id', 'v.title', 'm.file_path', 'm.file_name')
+                    ->where('favourites.customer_id', $customer_id)->where('favourites.type', 'video')->get();
+        return view('web.favorites', compact('videos', 'texts'));
     }
+
+    public function postFavourite($type, $article_id) {
+        $customer_id = Session::get('user_id');
+        $favourite = Favourite::where('customer_id', $customer_id)->where('article_id', $article_id)->first();
+        if(empty($favourite)) {
+            $fav = new Favourite;
+            $fav->customer_id=$customer_id;
+            $fav->article_id=$article_id;
+            $fav->type=$type;
+            $fav->save();
+        }
+
+        $response = [];
+        $response['status'] = TRUE;
+        return $response;
+    }
+
+    public function removeFavourite($id) {
+        $favourite = Favourite::find($id);
+        $favourite->delete();
+        return redirect(url('favorites'));
+    }
+
 }

@@ -5,7 +5,7 @@
 
 	        <header class="row m-0 fixed-header no-shadow bg-primary top-menu">
 	            <div class="top-menu-left">
-	                <a class="top-menu-back active" data-savepage-href="/news" href="news.html">
+	                <a class="top-menu-back active" data-savepage-href="/news" href="{{ url('videos') }}">
 	                    <i class="fas fa-arrow-left"></i></a>
 	                <a class="top-menu-left-open" href="#"><i class="fas fa-info-circle"></i></a>
 	            </div>
@@ -24,9 +24,10 @@
 	                <div class="container-fluid">
 
 	                    <div class="page-video-buttons d-flex align-items-center mb-3">
-	                        <a class="flex-1 page-video-buttons__item btn btn-light mr-2 active " data-id="1666"
+	                        <a class="flex-1 page-video-buttons__item btn btn-light mr-2 active {{ checkFav($article->id, 'video') }}" data-id="{{ $article->id }}" data-url="{{ url('favourite/video') }}"
 	                            rel="favorite" id="favoriteBtn" href="javascript:;">
 	                            <i class=" far  fa-star "></i></a>
+
 	                        <div class="flex-1 page-video-buttons__item btn btn-primary mr-2 position-relative">
 	                            <a class="page-video-buttons__item" id="shareBtn" href="javascript:;"
 	                                style="color: white;"><i class="fas fa-share"></i></a>
