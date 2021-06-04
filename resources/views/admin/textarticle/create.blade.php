@@ -15,7 +15,7 @@
                         {!! Form::label('category', 'Category:') !!} <span class="text-danger">*</span>
                         <select class="form-control" name="category_id">
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}">EN- {{ $category->name }} MM- {{ $category->slug }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('category_id'))

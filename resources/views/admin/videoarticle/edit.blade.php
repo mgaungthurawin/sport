@@ -19,7 +19,7 @@
                                     @if($category->id == $article->category_id)
                                         selected
                                     @endif
-                                    >{{ $category->name }}</option>
+                                    >EN- {{ $category->name }} MM- {{ $category->slug }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('category_id'))

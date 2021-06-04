@@ -16,7 +16,7 @@
                         <select class="form-control" name="parent">
                             <option value="">-- None --</option>
                             @foreach($parents as $category)
-                                <option value="{{ $category->id }}">MM- {{ $category->name }}  En- {{ $category->slug }}</option>
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                         @if ($errors->has('category_id'))
