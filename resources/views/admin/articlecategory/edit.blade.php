@@ -21,7 +21,7 @@
                                         @if($parent->id == $category->parent)
                                             selected
                                         @endif
-                                        >{{ $parent->name }}</option>
+                                        >MM- {{ $category->name }}  En- {{ $category->slug }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('category_id'))
