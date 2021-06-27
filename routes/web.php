@@ -1,7 +1,7 @@
 <?php
 
+Route::get('/', 'Web\WebController@index');
 Route::group(['namespace' => 'Web', 'middleware' => 'signature'], function () {
-	Route::get('/', 'WebController@index');
 	Route::get('/news', 'WebController@news');
 	Route::get('/videos', 'WebController@videos');
 	Route::get('/{category_id}/news', 'WebController@categoryNews');
@@ -9,7 +9,6 @@ Route::group(['namespace' => 'Web', 'middleware' => 'signature'], function () {
 	Route::get('/{article_id}/article/{type}/detail', 'WebController@articleDetail');
 	Route::get('/faq', 'WebController@faq');
 	Route::get('/favorites', 'WebController@favorites');
-
 	Route::get('favourite/{type}/{article_id}', 'WebController@postFavourite');
 	Route::get('remove/{id}/favourite', 'WebController@removeFavourite');
 
