@@ -13,23 +13,16 @@
     @endif
 
     <nav class="bottom-menu">
-      <a class="bottom-menu-item  active " data-savepage-href="/news" href="{{ $news }}">
-        <svg class="icon icon-news">
-          <use xlink:href="{{ asset('web/assets/images/icons.svg#icon-news') }}"></use>
-        </svg>
+      <a class="bottom-menu-item {{ Request::is('news*') ? 'active' : '' }}" data-savepage-href="/news" href="{{ $news }}">
+          <img class="item-icon" src="{{ asset('web/images/icons/ico-11.png') }}" alt="">
         <small>သတင်းများ</small>
       </a>
-      <a class="bottom-menu-item " data-savepage-href="/videos" href="{{ $videos }}">
-        <svg class="icon icon-videos">
-          <use xlink:href="/assets/images/icons.svg#icon-videos"></use>
-        </svg>
+      <a class="bottom-menu-item {{ Request::is('videos*') ? 'active' : '' }}" data-savepage-href="/videos" href="{{ $videos }}">
+          <img class="item-icon" src="{{ asset('web/images/icons/ico-12.png') }}" alt="">
         <small>ဗီဒီယို</small>
       </a>
-
-      <a class="bottom-menu-item" data-savepage-href="/favorites" href="{{ url('favorites') }}">
-        <svg class="icon icon-favorites">
-          <use xlink:href="/assets/images/icons.svg#icon-favorites"></use>
-        </svg>
+      <a class="bottom-menu-item {{ Request::is('favorites*') ? 'active' : '' }}" data-savepage-href="/favorites" href="{{ url('favorites') }}">
+        <img class="item-icon" src="{{ asset('web/images/icons/ico-05.png') }}" alt="">
         <small id="navbar-favorites">အနှစ်သက်ဆုံးများ</small>
       </a>
     </nav>
