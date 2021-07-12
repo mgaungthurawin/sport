@@ -47,6 +47,7 @@
     $(document).ready(function () {
         $(document).on('click', '#subscribe-btn', function () {
             window.location.href = 'http://mymportals.com?service_type=MMSPORT&service_id=9510';
+            
         });
     })
 </script>
