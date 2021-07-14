@@ -34,7 +34,7 @@
                 စာရင်းသွင်းခြင်းအတွက်နေ့စဉ်(၁၅၀)ကျပ်
             </div>
             <div class="uk-flex uk-flex-center subs-div" style="text-align: center;"><br/>
-                <a href="http://mymportals.com?service_type=MMSPORT&service_id=538" id="subscribe-button"
+                <a href="http://mymportals.com?service_type=MMSPORT&service_id=9510" id="subscribe-button"
                         style="margin: 0; padding: 10px 20px;text-decoration: none; box-sizing: border-box; background: #1db33d; color: #ffffff; height: 50px; line-height: 48px; border-radius: 25px; width: 80%; max-width: 400px; font-size: 1.3em; border: 0;">
                     စာရင်းသွင်းရအောင်
             </a>
