@@ -35,8 +35,10 @@
 
           @foreach(getAllCategories() as $category)
             <div class="swiper-slide"><a class="home-tags-item" href="{{ url($category->id.'/news') }}">
+              @if(isset($category->media))
                 <img class="header-menu-icon" src="{{ asset($category->media->file_path . $category->media->file_name ) }}" alt="">
-                <span>{{ $category->name }}</span></a>
+              @endif
+              <span>{{ $category->name }}</span></a>
             </div>
           @endforeach
     </div>
