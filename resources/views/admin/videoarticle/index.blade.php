@@ -39,7 +39,11 @@
                         <tr>
                             <td>{{ $index++ }}</td>
                             <td>{!! $article->title !!}</td>
-                            <td><img src="{{ asset($article->media->file_path . $article->media->file_name) }}" width="100px;" /></td>
+                            <td>
+                                @if(isset($article->media))
+                                    <img src="{{ asset($article->media->file_path . $article->media->file_name) }}" width="100px;" />
+                                @endif
+                            </td>
                             <td>{!! showPrettyStatus($article->status) !!}</td>
                             <td>{!! $article->created_at !!}</td>
                             <td>
