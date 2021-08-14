@@ -2,7 +2,7 @@
 
 Route::get('/', 'Web\WebController@index');
 Route::get('/faq', 'Web\WebController@faq');
-Route::group(['namespace' => 'Web'], function () {
+Route::group(['namespace' => 'Web', 'middleware' => 'signature'], function () {
 	Route::get('/news', 'WebController@news');
 	Route::get('/videos', 'WebController@videos');
 	Route::get('/{category_id}/news', 'WebController@categoryNews');
