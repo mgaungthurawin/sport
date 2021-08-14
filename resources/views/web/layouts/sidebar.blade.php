@@ -16,7 +16,7 @@
           </div>
         </a>
 
-        <a class="sidebar-close" data-savepage-href="/favorites" href="{{ url('favourites') }}">
+        <a class="sidebar-close" data-savepage-href="/favorites" href="{{ url('favorites') }}">
           <div class="item-title">
             <img class="item-icon" src="{{ asset('web/images/icons/ico-05.png') }}" alt="">
             အနှစ်သက်ဆုံးများ
