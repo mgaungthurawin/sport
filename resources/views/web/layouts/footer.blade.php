@@ -37,7 +37,7 @@
         <h6 class="modal-title text-center" id="cancelModal">စာရင်းပယ်ဖျက်မှုဖြစ်သွားပါလိမ့်မည်။ အတည်ပြုပါသလား?</h6>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-light" href="http://myanmar-sport.com/cancelSubscription">အတည်ပြုပါ</a>
+        <a class="btn btn-light" href="{{ url('unsubscribe') }}">အတည်ပြုပါ</a>
         <button class="btn btn-danger" type="button" data-dismiss="modal">ဖျက်သိမ်းခြင်း</button>
       </div>
     </div>

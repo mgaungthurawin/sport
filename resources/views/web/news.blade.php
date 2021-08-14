@@ -7,7 +7,9 @@
 
             @foreach($articles as $article)
               <a class="news-item mb-2"  href="{{ url($article->id.'/article/text/detail') }}">
+                @if(isset($article->media))
                 <img src="{{ asset($article->media->file_path . $article->media->file_name ) }}" alt="">
+                @endif
                 <span class="news-item__title">{{ $article->title }}</span>
               </a>
             @endforeach

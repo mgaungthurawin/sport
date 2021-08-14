@@ -9,6 +9,7 @@ use App\Model\TextArticle;
 use App\Model\VideoArticle;
 use App\Model\Favourite;
 use Session;
+use Redirect;
 
 class WebController extends Controller
 {
@@ -97,4 +98,11 @@ class WebController extends Controller
         return redirect(url('favorites'));
     }
 
+    public function unsubscribe() {
+        $response = [];
+        $customer_id = Session::get('user_id');
+        $url = 'http://mymportals.com/unsubscribe?customer_id='.$customer_id.'&service_id=9510&service_type=MMSPORT';
+        Session::forget('user_id');
+        return Redirect::away($url);
+    }
 }
