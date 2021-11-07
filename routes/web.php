@@ -14,10 +14,6 @@ Route::group(['namespace' => 'Web', 'middleware' => 'signature'], function () {
 	Route::get('unsubscribe', 'WebController@unsubscribe');
 });
 
-
-
-
-
 Route::group(['prefix' => 'admin'], function () {
 	Auth::routes();
 });
